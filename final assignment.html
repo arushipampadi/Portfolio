@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <title>Document</title>
+</head>
+<body>
+<style>
+  body {
+    margin: 0;
+    overflow-x: hidden;
+    background-color: black;
+  }
+
+  .nav-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 3.3rem;
+    margin-bottom: 4rem;
+    position: relative;
+    width: 100%;
+  }
+
+  .nav-logo {
+    padding: 40px;
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+    position: absolute;
+    left: 2rem;
+  }
+
+  .nav-buttons {
+    display: flex;
+    gap: 1.8rem;
+    justify-content: center;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .nav-buttons a {
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.nav-buttons a:hover {
+    text-decoration: none;
+    color: #000000;
+}
+
+  .nav-button {
+    padding: 0.7rem 1rem;
+    font-size: 0.9rem;
+    font-family: Space Grotesk Light;
+    color: white;
+    background: transparent;
+    border: 2px solid white;
+    border-radius: 22px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .nav-button:hover {
+    background: white;
+    color: black;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
+  }
+
+  .nav-button:active {
+    transform: translateY(-1px);
+  }
+
+  .intro-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4rem;
+    color: white;
+    position: relative;
+    z-index: 1;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 1s ease;
+  }
+
+  .intro-section.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .intro-text {
+    flex: 0 1 50%;
+    padding-right: 4rem;
+  }
+
+  .intro-text h2 {
+    font-family: Arcade Normal;
+    font-weight: 400;
+    font-size: 45px;
+    line-height: 1.8;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+    position: relative;
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 3px solid white;
+    animation: typing 3.5s steps(30, end) infinite,
+             blink-caret .75s step-end infinite;
+    width: 0;
+  }
+
+  @keyframes typing {
+    0% { width: 0 }
+    50% { width: 100% }
+    90% { width: 100% }
+    100% { width: 0 }
+  }
+
+  @keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: white }
+  }
+
+  .intro-text p {
+    font-family: Space Grotesk Light;
+    font-size: 1.2rem;
+    line-height: 1.8;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+  }
+
+  .intro-image {
+    flex: 0 1 40%;
+    height: 500px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 12px 24px rgba(0,0,0,0.4);
+    position: relative;
+    z-index: 2;
+  }
+
+  .intro-image iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+
+  .skills-section {
+    min-height: 100vh;
+    padding: 5rem;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.9);
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    position: relative;
+    z-index: 1;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 1s ease;
+  }
+
+  .skills-section.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .skills-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    opacity: 0;
+    transform: translateX(-50px);
+    transition: all 1s ease;
+  }
+
+  .skills-row.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .skills-row:nth-child(even) {
+    transform: translateX(50px);
+  }
+
+  .skills-column {
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    width: 35%;
+    cursor: pointer;
+    transition: all 0.5s ease;
+  }
+
+  .skills-column:hover {
+    transform: translateY(-10px);
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 20px rgba(255, 255, 255, 0.1);
+  }
+
+  .skills-image {
+    width: 600px;
+    height: 350px;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    transition: all 0.5s ease;
+    margin: 0 -2rem;
+  }
+
+  .skills-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: all 0.5s ease;
+  }
+
+  .skills-image:hover img {
+    transform: scale(1.1);
+  }
+
+  .skills-column h2 {
+    font-family: Arcade Normal;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: all 0.3s ease;
+  }
+
+  .skills-column:hover h2 {
+    transform: scale(1.05);
+  }
+
+  .skills-column ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .skills-column li {
+    font-family: Space Grotesk Light;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  .skills-column li:hover {
+    padding-left: 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+  }
+
+  .projects-section {
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    z-index: 1;
+    margin-bottom: -50px;
+  }
+
+  .projects-heading {
+    color: white;
+    font-family: Arcade Normal;
+    font-size: 2.5rem;
+    position: absolute;
+    top: 5%;
+    left: 50%;
+    margin-bottom: 100px;
+    transform: translateX(-50%);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    z-index: 1;
+  }
+
+  #image-track {
+    display: flex;
+    gap: 4vmin;
+    position: absolute;
+    left: 50%;
+    top: 55%;
+    width: max-content;
+    will-change: transform;
+    opacity: 0;
+    transition: opacity 1s ease-out;
+    transform: translate(-50%, -50%);
+  }
+
+  .project-container {
+    position: relative;
+    width: 40vmin;
+    height: 56vmin;
+    overflow: hidden;
+    transform: scale(0.95);
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: none;
+  }
+
+  .project-info {
+    position: absolute;
+    bottom: -100%;
+    left: 0;
+    width: 100%;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    text-align: center;
+    backdrop-filter: blur(8px);
+  }
+
+  .project-container:hover {
+    transform: scale(1);
+  }
+
+  .project-container:hover .project-info {
+    bottom: 0;
+  }
+
+  .project-container:hover .image {
+    transform: scale(1.08);
+    filter: brightness(1);
+  }
+
+  .project-title {
+    font-size: 1.2rem;
+    font-family: Space Grotesk Light;
+    transform: translateY(0);
+    opacity: 0;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    margin-right: 15px;
+  }
+
+  .project-container:hover .project-title {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  .visible {
+    opacity: 1 !important;
+  }
+  .cursor-star {
+    width: 30px;
+    height: 30px;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    mix-blend-mode: difference;
+    transition: all 0.1s linear;
+    transform: translate(-50%, -50%);
+    will-change: transform;
+    animation: float 2s ease-in-out infinite;
+  }
+
+  .intro-image:hover ~ .cursor-star {
+    opacity: 0;
+  }
+
+  .cursor-star img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  @keyframes float {
+    0% {
+      transform: translate(-50%, -50%) translateY(0px);
+    }
+    50% {
+      transform: translate(-50%, -50%) translateY(-10px);
+    }
+    100% {
+      transform: translate(-50%, -50%) translateY(0px);
+    }
+  }
+
+  .image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 12px;
+    box-shadow: 0 12px 24px rgba(0,0,0,0.4);
+    filter: brightness(0.85);
+  }
+  .social-section {
+    min-height: 50vh;
+    background-color: rgba(0, 0, 0, 0.95);
+    padding: 3rem 2rem;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease;
+  }
+
+  .social-section.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .social-heading {
+    font-family: Arcade Normal;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.8s ease 0.2s;
+  }
+
+  .social-section.visible .social-heading {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .social-links {
+    font-family: Space Grotesk Light;
+    margin-top: 100px;
+    font-size: 1.2rem;
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .social-links p{
+    margin-top: 12px;
+  }
+
+  .social-link {
+    display: flex;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 30px;
+    text-decoration: none;
+    color: white;
+    
+    transition: all 0.4s ease;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  .social-section.visible .social-link {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .social-section.visible .social-link:nth-child(1) { transition-delay: 0.3s; }
+  .social-section.visible .social-link:nth-child(2) { transition-delay: 0.4s; }
+  .social-section.visible .social-link:nth-child(3) { transition-delay: 0.5s; }
+  .social-section.visible .social-link:nth-child(4) { transition-delay: 0.6s; }
+
+  .social-link:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-5px);
+  }
+
+  .social-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+  }
+</style>
+
+<div class="nav-container">
+  <img src="Logo for portfolio.png" alt="Logo" class="nav-logo">
+  <div class="nav-buttons">
+    <button class="nav-button"><a href="final assignment.html">Home</a></button>
+    <button class="nav-button"><a href="personal work.html">Personal work</a></button>
+    <button class="nav-button"><a href="projects.html">Projects</a></button>
+    <button class="nav-button"><a href="contact me.html">Contact Me</a></button>
+  </div>
+</div>
+
+<section class="intro-section">
+  <div class="intro-text">
+    <h2> Hi, I'm Arushi! </h2>
+    <p>Welcome to my creative portfolio. I'm passionate about design and visual storytelling, 
+      constantly exploring new ways to bring ideas to life.</p>
+    <p> I'm a student of ATLAS ISDI, currently pursuing communication design. I absolutely love chocolate cake and have a 
+      passion for character design. Thanks for stopping by! :D</p>
+  </div>
+  <div class="intro-image">
+    <iframe src="rocket animation.html" frameborder="0"></iframe>
+  </div>
+</section>
+
+<section class="skills-section">
+  <div class="skills-row">
+    <div class="skills-column">
+      <h2>Skills</h2>
+      <ul>
+        <li>Graphic Design</li>
+        <li>Branding & Advertising</li>
+        <li>Character Design</li>
+        <li>Digital Illustration</li>
+      </ul>
+    </div>
+    <div class="skills-image">
+      <img src="Pixel man 2.gif" alt="Skills Illustration">
+    </div>
+  </div>
+  
+  <div class="skills-row">
+    <div class="skills-image">
+      <img src="Pixel man 1.gif" alt="Experience Illustration">
+    </div>
+    <div class="skills-column">
+      <h2>Experience</h2>
+      <ul>
+        <li>Vice Head Designer of Excelerate (2022)</li>
+        <li>Design Intern at Gallop Studios (2023)</li>
+      </ul>
+    </div>
+  </div>
+  
+  <div class="skills-row">
+    <div class="skills-column">
+      <h2>Hobbies</h2>
+      <ul>
+        <li>Photography</li>
+        <li>Doodling</li>
+        <li>Singing</li>
+        <li>Travelling</li>
+      </ul>
+    </div>
+    <div class="skills-image">
+      <img src="Pixel man 4.webp" alt="Hobbies Illustration">
+    </div>
+  </div>
+</section>
+
+<section class="projects-section">
+  <h2 class="projects-heading">Featured Projects</h2>
+  <div class="cursor-star">
+    <img src="Ghost 5.png" alt="cursor">
+  </div>
+  <div id="image-track" data-mouse-down-at="0" data-prev-percentage="0">
+    <div class="project-container">
+      <img class="image" src="Movie Poster.png" draggable="false" />
+      <div class="project-info">
+        <h3 class="project-title">Movie Poster</h3>
+      </div>
+    </div>
+    <div class="project-container">
+      <img class="image" src="Bottle Mockup.jpg" draggable="false" />
+      <div class="project-info">
+        <h3 class="project-title">3-D Mockup</h3>
+      </div>
+    </div>
+    <div class="project-container">
+      <img class="image" src="Cookbook Mockup.jpg" draggable="false" />
+      <div class="project-info">
+        <h3 class="project-title">Cookbook</h3>
+      </div>
+    </div>
+    <div class="project-container">
+      <img class="image" src="Candle Mockup.jpg" draggable="false" />
+      <div class="project-info">
+        <h3 class="project-title">Font Design</h3>
+      </div>
+    </div>
+    <div class="project-container">
+      <img class="image" src="Logo & Colour Palette.jpg" draggable="false" />
+      <div class="project-info">
+        <h3 class="project-title">Branding</h3>
+      </div>
+    </div>
+    <div class="project-container">
+      <img class="image" src="Character Design-01.jpg" draggable="false" />
+      <div class="project-info">
+        <h3 class="project-title">Character Design</h3>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="social-section">
+  <h2 class="social-heading">Wanna say hi?</h2>
+  <div class="social-links">
+    <a href="https://www.linkedin.com/in/arushi-pampadi-555232282/" class="social-link"><i class='bx bxl-linkedin'></i></a>
+      <p>LinkedIn</p>
+    </a>
+    <a href="https://www.instagram.com/ashi_pam?igsh=NjZkZ3RqeWNmM3R6" class="social-link"><i class='bx bxl-instagram-alt'></i></a>
+      <p>Instagram</p>
+    </a>
+    <a href="https://www.behance.net/arushipampadi2" class="social-link"><i class='bx bxl-behance'></i></a>
+      <p>Behance</p>
+    </a>
+  </div>
+</section>
+
+<script>
+  const track = document.getElementById("image-track");
+  const cursorStar = document.querySelector('.cursor-star');
+  const introSection = document.querySelector('.intro-section');
+  const skillsSection = document.querySelector('.skills-section');
+  const skillsRows = document.querySelectorAll('.skills-row');
+  const projectsSection = document.querySelector('.projects-section');
+  const socialSection = document.querySelector('.social-section');
+  let isDown = false;
+  let startX;
+  let scrollLeft;
+
+  // Scroll animation observer
+  const observerOptions = {
+    threshold: 0.2,
+    rootMargin: "0px 0px -100px 0px"
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, observerOptions);
+
+  // Observe sections and rows
+  observer.observe(introSection);
+  observer.observe(skillsSection);
+  observer.observe(socialSection);
+  skillsRows.forEach(row => observer.observe(row));
+
+  // Custom cursor movement
+  let cursorX = 0;
+  let cursorY = 0;
+  
+  document.addEventListener('mousemove', (e) => {
+    cursorX = e.clientX;
+    cursorY = e.clientY;
+  });
+
+  function updateCursor() {
+    requestAnimationFrame(updateCursor);
+    cursorStar.style.left = cursorX + 'px';
+    cursorStar.style.top = cursorY + 'px';
+  }
+  updateCursor();
+
+  // Project section interactions
+  const projectContainers = document.querySelectorAll('.project-container');
+  projectContainers.forEach(container => {
+    container.addEventListener('mouseenter', () => {
+      cursorStar.style.transform = 'translate(-50%, -50%) scale(1.5)';
+    });
+    container.addEventListener('mouseleave', () => {
+      cursorStar.style.transform = 'translate(-50%, -50%) scale(1)';
+    });
+  });
+  
+  // Project track scroll animation
+  window.addEventListener('scroll', () => {
+    const projectsSectionTop = projectsSection.getBoundingClientRect().top;
+    
+    if (projectsSectionTop <= window.innerHeight / 2) {
+      track.classList.add('visible');
+    } else {
+      track.classList.remove('visible');
+    }
+  });
+
+  const handleOnDown = e => {
+    isDown = true;
+    startX = e.pageX || (e.touches && e.touches[0].pageX) - track.offsetLeft;
+    scrollLeft = track.dataset.prevPercentage || 0;
+    
+    track.dataset.mouseDownAt = e.pageX || (e.touches && e.touches[0].pageX);
+  }
+  
+  const handleOnUp = () => {
+    isDown = false;
+    track.dataset.mouseDownAt = "0";
+    track.dataset.prevPercentage = track.dataset.percentage || 0;
+  }
+  
+  const handleOnMove = e => {
+    if (!isDown) return;
+    e.preventDefault();
+    
+    const x = e.pageX || (e.touches && e.touches[0].pageX);
+    const mouseDelta = parseFloat(track.dataset.mouseDownAt) - x;
+    const maxDelta = window.innerWidth / 2;
+    
+    const percentage = (mouseDelta / maxDelta) * -50;
+    const nextPercentageUnconstrained = parseFloat(scrollLeft) + percentage;
+    const nextPercentage = Math.max(Math.min(nextPercentageUnconstrained, 50), -50);
+    
+    track.dataset.percentage = nextPercentage;
+    
+    track.style.transform = `translate(calc(-50% + ${nextPercentage}%), -50%)`;
+  }
+  
+  // Mouse Events for project track
+  track.addEventListener('mousedown', handleOnDown);
+  window.addEventListener('mousemove', handleOnMove);
+  window.addEventListener('mouseup', handleOnUp);
+  
+  // Touch Events for project track
+  track.addEventListener('touchstart', handleOnDown);
+  window.addEventListener('touchmove', handleOnMove);
+  window.addEventListener('touchend', handleOnUp);
+  
+  // Prevent context menu
+  track.addEventListener('contextmenu', e => e.preventDefault());
+</script>
+</body>
+</html>
